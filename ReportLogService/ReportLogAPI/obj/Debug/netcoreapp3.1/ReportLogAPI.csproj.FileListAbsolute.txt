@@ -1,0 +1,9 @@
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\obj\Debug\netcoreapp3.1\ReportLogAPI.csprojAssemblyReference.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\obj\Debug\netcoreapp3.1\ReportLogAPI.AssemblyInfoInputs.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\obj\Debug\netcoreapp3.1\ReportLogAPI.AssemblyInfo.cs
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\obj\Debug\netcoreapp3.1\ReportLogAPI.RazorTargetAssemblyInfo.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\obj\Debug\netcoreapp3.1\staticwebassets\ReportLogAPI.StaticWebAssets.Manifest.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogAPI\ReportLogAPI\obj\Debug\netcoreapp3.1\staticwebassets\ReportLogAPI.StaticWebAssets.xml

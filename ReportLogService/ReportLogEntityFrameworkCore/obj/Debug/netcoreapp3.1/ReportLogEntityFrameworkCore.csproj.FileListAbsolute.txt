@@ -1,0 +1,5 @@
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\bin\Debug\netcoreapp3.1\ReportLogEntityFrameworkCore.deps.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\bin\Debug\netcoreapp3.1\ReportLogEntityFrameworkCore.dll
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Debug\netcoreapp3.1\ReportLogEntityFrameworkCore.csprojAssemblyReference.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Debug\netcoreapp3.1\ReportLogEntityFrameworkCore.AssemblyInfoInputs.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Debug\netcoreapp3.1\ReportLogEntityFrameworkCore.AssemblyInfo.cs
