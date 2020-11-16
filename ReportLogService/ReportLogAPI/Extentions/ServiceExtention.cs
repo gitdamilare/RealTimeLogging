@@ -30,7 +30,7 @@ namespace ReportLogAPI.Extentions
 		public static IServiceCollection ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.AddDbContext<ReportLogDbContext>(
-				options => options.UseSqlServer(configuration.GetConnectionString("Localsource"))
+				options => options.UseSqlServer(configuration.GetConnectionString("Azuresource"))
 				);
 			return services;
 		}
