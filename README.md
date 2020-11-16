@@ -1,2 +1,8 @@
-# solution
- 
+# Tecan Solution
+
+
+## WorkFlow 
+
+
+## WorkFlow Breakdown
+
