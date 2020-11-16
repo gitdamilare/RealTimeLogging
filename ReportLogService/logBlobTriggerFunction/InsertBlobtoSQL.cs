@@ -34,75 +34,31 @@ namespace logBlobTriggerFunction
 							 .Build();
 			var connectionString = config.GetConnectionString("Azuresource");
 
-			//var (IsSuccess, Logs, Message) = await DataTransformationAsync(myBlob, log);
-
-			var result = await LogTransformationAsync(myBlob, log);
-			watch.Start();
-			var insertResult = await SqlHelper.InsertLogData(result.Logs, log, connectionString);
-			watch.Stop();
-			var executionTime = $"{watch.ElapsedMilliseconds}";
-			if (insertResult.IsSuccess)
+			var dataTransformation = await LogTransformationAsync(myBlob, log);
+			if (dataTransformation.IsSuccess)
 			{
-				var insertProcessLog = await SqlHelper.InsertLogProcessData(new LogProcessData { FileName = name, ExecutionTime = executionTime }, log, connectionString);
-				var makeCall = await CallSignlar();
-				if (result.IsSuccess)
-					log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
-			}
-			
-		}
-
-		public static async Task<(bool IsSuccess, List<Log> Logs, string Message)> DataTransformationAsync(Stream inputData, ILogger log)
-		{
-			List<Log> result = new List<Log>();
-			try
-			{
-				using (var stream = new StreamReader(inputData))
+				watch.Start();
+				var dataInsertion = await SqlHelper.InsertLogData(dataTransformation.Logs, log, connectionString);
+				watch.Stop();
+				var executionTime = $"{watch.ElapsedMilliseconds}";
+				if (dataInsertion.IsSuccess)
 				{
-					XmlTextReader xmlTextReader = new XmlTextReader(stream);
-					while (xmlTextReader.Read())
-					{
-						if ((xmlTextReader.NodeType == XmlNodeType.Element) && (xmlTextReader.Name.Equals("Log")))
-						{
-							if (xmlTextReader.HasAttributes)
-							{
-								result.Add(new Log
-								{
-									MessageId = xmlTextReader.GetAttribute("MsgID"),
-									TimeStamp = xmlTextReader.GetAttribute("TimeStamp"),
-									Channel = xmlTextReader.GetAttribute("Channel"),
-									Type = xmlTextReader.GetAttribute("Type"),
-									Severity = xmlTextReader.GetAttribute("Severity"),
-									RootActivityId = xmlTextReader.GetAttribute("RootActivityId"),
-									ParentActivityId = xmlTextReader.GetAttribute("ParentActivityId"),
-									ActivityId = xmlTextReader.GetAttribute("ActivityId"),
-									ActivityName = xmlTextReader.GetAttribute("ActivityName"),
-									Message = xmlTextReader.GetAttribute("Message"),
-								});
-							}
-						}
-					}
-					//XmlDataLog xmlDataLog = (XmlDataLog)reader.Deserialize(stream);
-					//bool isNotNull = xmlDataLog.GetType()
-					//							.GetProperties().All(p => p.GetValue(xmlDataLog) != null);
 
+					var processLogInsertion = await SqlHelper.InsertLogProcessData(new LogProcessData { FileName = name, ExecutionTime = executionTime }, log, connectionString);
+					var (IsSuccess, outputDto, _) = await SqlHelper.SelectReportLogCount(log, connectionString);
 
-					await Task.Delay(1);
-					if (result.Count > 0)
-					{
-						return (true, result, string.Empty);
-					}
-					log.LogError("Error Occured at DataTransformationAsync, while trying to read LogFile. Logfile is empty");
-					return (false, null, "An Error Occured");
+					if (IsSuccess)
+						await NotifySignalrAsync(outputDto);
+
+					if (processLogInsertion.IsSuccess)
+						log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
 				}
 			}
-			catch (Exception ex)
-			{
-				log.LogError("Error Occured at DataTransformationAsync, " + ex.Message);
-				return (false, null, ex.Message);
-			}
 
 		}
 
+
+		#region LogTransformation
 		public static async Task<(bool IsSuccess, DataTable Logs, string Message)> LogTransformationAsync(Stream inputData, ILogger log)
 		{
 			//List<Log> result = new List<Log>();
@@ -154,32 +110,19 @@ namespace logBlobTriggerFunction
 			}
 
 		}
+		#endregion
 
-
-		public static async Task<string> CallSignlar()
+		#region Notification SignalR
+		//Make a Call to SingalR
+		public static async Task NotifySignalrAsync(ReportLogOutputDto inputDto)
 		{
-			using (var client = new HttpClient())
-			{
 
-				Dictionary<string, string> dictionary = new Dictionary<string, string>();
-				dictionary.Add("PARAM1", "VALUE1");
-				dictionary.Add("PARAM2", "VALUE2");
-
-				string json = JsonConvert.SerializeObject(dictionary);
-				var requestData = new StringContent(json, Encoding.UTF8, "application/json");
-
-				var response = await client.PostAsync(String.Format("http://localhost:7071/api/updateui"), requestData);
-				var result = await response.Content.ReadAsStringAsync();
-
-				return result;
-			}
+			using var client = new HttpClient();
+			string json = JsonConvert.SerializeObject(inputDto);
+			var requestData = new StringContent(json, Encoding.UTF8, "application/json");
+			var response = await client.PostAsync(String.Format("http://localhost:7071/api/updateui"), requestData);
 		}
-
-
-
-
-
-
+		#endregion
 
 
 		private static DataTable ObjToDataTable<T>(T obj) where T : class

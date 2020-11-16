@@ -1,0 +1,12 @@
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\bin\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.deps.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\bin\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.runtimeconfig.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\bin\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.runtimeconfig.dev.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\bin\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.dll
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\bin\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.pdb
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.csprojAssemblyReference.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.AssemblyInfoInputs.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.AssemblyInfo.cs
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.csproj.CoreCompileInputs.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.dll
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.pdb
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogEntityFrameworkCore\obj\Release\netcoreapp3.1\ReportLogEntityFrameworkCore.genruntimeconfig.cache

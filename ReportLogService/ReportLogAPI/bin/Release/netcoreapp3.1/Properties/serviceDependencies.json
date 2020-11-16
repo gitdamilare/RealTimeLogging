@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "storage1": {
+      "type": "storage",
+      "connectionId": "BlobStorage"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "Azuresource"
+    }
+  }
+}

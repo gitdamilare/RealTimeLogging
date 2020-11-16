@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "storage1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/reportlogfunctionstorage",
+      "type": "storage.azure",
+      "connectionId": "BlobStorage",
+      "secretStore": "AzureAppSettings"
+    },
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/tecansolution/databases/ReportLogDb",
+      "type": "mssql.azure",
+      "connectionId": "Azuresource",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}

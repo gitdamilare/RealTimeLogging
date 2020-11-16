@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportLogAPI", "ReportLogAPI\ReportLogAPI.csproj", "{B55110E8-359F-4E52-9068-83E1CE889246}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportLogEntityFrameworkCore", "ReportLogEntityFrameworkCore\ReportLogEntityFrameworkCore.csproj", "{3826DD92-C5BB-40E1-9E4B-DFA830817EC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportLogEntityFrameworkCore", "ReportLogEntityFrameworkCore\ReportLogEntityFrameworkCore.csproj", "{3826DD92-C5BB-40E1-9E4B-DFA830817EC2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "logBlobTriggerFunction", "logBlobTriggerFunction\logBlobTriggerFunction.csproj", "{BB97D2D2-5A99-401E-ABF7-2B75205ADE0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3826DD92-C5BB-40E1-9E4B-DFA830817EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3826DD92-C5BB-40E1-9E4B-DFA830817EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3826DD92-C5BB-40E1-9E4B-DFA830817EC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB97D2D2-5A99-401E-ABF7-2B75205ADE0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB97D2D2-5A99-401E-ABF7-2B75205ADE0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB97D2D2-5A99-401E-ABF7-2B75205ADE0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB97D2D2-5A99-401E-ABF7-2B75205ADE0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

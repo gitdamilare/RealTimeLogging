@@ -1,0 +1,69 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Log Report API Demo",
+    "description": "This is a demo of how to use Swagger in Web API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Report": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Report/{page}": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Upload": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "uploadedFiles",
+            "type": "array",
+            "items": {
+              "format": "binary",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}

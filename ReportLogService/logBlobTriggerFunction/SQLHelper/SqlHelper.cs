@@ -6,8 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace logBlobTriggerFunction.SQLHelper
 {
@@ -63,6 +66,49 @@ namespace logBlobTriggerFunction.SQLHelper
 				return (false, ex.Message);
 			}
 		}
+
+
+		public static async Task<(bool IsSuccess, ReportLogOutputDto outputDto, string Message)> SelectReportLogCount(ILogger log, string connectionString)
+		{
+
+			string messageCountSql = SqlCounterStatmentGenerator(isBase: true);
+			string totalWarningSql = SqlCounterStatmentGenerator(condition: (int)Severity.Warning, isBase: false);
+			string totalInfoSql = SqlCounterStatmentGenerator(condition: (int)Severity.Info, isBase: false);
+			string totalErrorSql = SqlCounterStatmentGenerator(condition: (int)Severity.Error, isBase: false);
+			string processLogSql = "SELECT Id, DateCreated, CreatedBy, FileName, ExecutionTime From AppLogProcessData";
+
+
+			try
+			{
+				using (var conn = new SqlConnection(connectionString))
+				{
+					using (SqlCommand cmd = conn.CreateCommand())
+					{
+						conn.Open();
+						var messageCount = await conn.ExecuteScalarAsync<int>(messageCountSql);
+						var totalWarningCount = await conn.ExecuteScalarAsync<int>(totalWarningSql);
+						var totalInfoCount = await conn.ExecuteScalarAsync<int>(totalInfoSql);
+						var totalErrorCount = await conn.ExecuteScalarAsync<int>(totalErrorSql);
+						var processLogData = conn.QueryAsync<LogProcessOutputDto>(processLogSql).Result.ToList();
+						var result = new ReportLogOutputDto(messageCount, totalWarningCount, totalInfoCount, totalErrorCount, processLogData.Count, processLogData);
+						return (true, result, string.Empty);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				log.LogError($"An Error Occured in InsertLogData Function : {ex.Message}");
+				return (false, null, ex.Message);
+			}
+		}
+
+		public static string SqlCounterStatmentGenerator(int condition = 0, bool isBase = false)
+		{
+			if (isBase)
+				return "SELECT COUNT(*) FROM AppFlattenLogData";
+			return $"SELECT COUNT(*) FROM AppFlattenLogData WHERE Severity = {condition}";
+			
+		}
 		public static DataTable DataTableCreator()
 		{
 			DataTable dt = new DataTable();
@@ -106,6 +152,58 @@ namespace logBlobTriggerFunction.SQLHelper
 			{
 				return Severity.Default;
 			}
+		}
+
+		public static async Task<(bool IsSuccess, List<Log> Logs, string Message)> DataTransformationAsync(Stream inputData, ILogger log)
+		{
+			List<Log> result = new List<Log>();
+			try
+			{
+				using (var stream = new StreamReader(inputData))
+				{
+					XmlTextReader xmlTextReader = new XmlTextReader(stream);
+					while (xmlTextReader.Read())
+					{
+						if ((xmlTextReader.NodeType == XmlNodeType.Element) && (xmlTextReader.Name.Equals("Log")))
+						{
+							if (xmlTextReader.HasAttributes)
+							{
+								result.Add(new Log
+								{
+									MessageId = xmlTextReader.GetAttribute("MsgID"),
+									TimeStamp = xmlTextReader.GetAttribute("TimeStamp"),
+									Channel = xmlTextReader.GetAttribute("Channel"),
+									Type = xmlTextReader.GetAttribute("Type"),
+									Severity = xmlTextReader.GetAttribute("Severity"),
+									RootActivityId = xmlTextReader.GetAttribute("RootActivityId"),
+									ParentActivityId = xmlTextReader.GetAttribute("ParentActivityId"),
+									ActivityId = xmlTextReader.GetAttribute("ActivityId"),
+									ActivityName = xmlTextReader.GetAttribute("ActivityName"),
+									Message = xmlTextReader.GetAttribute("Message"),
+								});
+							}
+						}
+					}
+					//XmlDataLog xmlDataLog = (XmlDataLog)reader.Deserialize(stream);
+					//bool isNotNull = xmlDataLog.GetType()
+					//							.GetProperties().All(p => p.GetValue(xmlDataLog) != null);
+
+
+					await Task.Delay(1);
+					if (result.Count > 0)
+					{
+						return (true, result, string.Empty);
+					}
+					log.LogError("Error Occured at DataTransformationAsync, while trying to read LogFile. Logfile is empty");
+					return (false, null, "An Error Occured");
+				}
+			}
+			catch (Exception ex)
+			{
+				log.LogError("Error Occured at DataTransformationAsync, " + ex.Message);
+				return (false, null, ex.Message);
+			}
+
 		}
 	}
 }
