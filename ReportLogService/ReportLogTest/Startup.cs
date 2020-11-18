@@ -19,9 +19,7 @@ namespace ReportLogTest
 		public void ConfigureServices(IServiceCollection services, HostBuilderContext context)
 		{
 
-			string sqlConn = @"Server=tcp:tecansolution.database.windows.net,1433;Initial Catalog=ReportLogDb;
-							   Persist Security Info=False;User ID=damilare;Password=Oyebanjidami95@;MultipleActiveResultSets=False;
-							   Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+			string sqlConn = @"";
 
 
 			services.AddAutoMapper(typeof(ReportLogAPI.Startup).Assembly);
