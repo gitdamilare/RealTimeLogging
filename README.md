@@ -4,7 +4,7 @@
 Our customers are interested in statistical data of their Tecan products. To facilitate this, design a system to gather and display run time data. Our robots write log files in a specific predefined structure. Once a log file reaches a certain size, it is zipped, and logging continues in a new log file. These log files shall be analyzed, and the statistical information shall be displayed on a web application ...
 
 ## Solution WorkFlow 
-<img alt="portfolio_view" src="https://github.com/gitdamilare/TecanSolution/blob/main/workflow.PNG">
+<img width =250 alt="portfolio_view" src="https://github.com/gitdamilare/TecanSolution/blob/main/workflow.png">
 
 ## Prerequirements 
 * Visual Studio 2019
