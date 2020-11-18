@@ -3,17 +3,17 @@
 ## Problem  
 Our customers are interested in statistical data of their Tecan products. To facilitate this, design a system to gather and display run time data. Our robots write log files in a specific predefined structure. Once a log file reaches a certain size, it is zipped, and logging continues in a new log file. These log files shall be analyzed, and the statistical information shall be displayed on a web application
 
-1. 	Analysis of multiple log files at the same time (Priority 1)
-2. 	Extraction of the following data:
-       a. 	Number of errors and warnings (Priority 1)
-       b. 	Overall run time (Priority 3)
-       c.  	The complete number of messages which have been parsed (Priority 3)
-3. 	Extendable to analyze more data from the log files in the future (Priority 2)
-4. 	Display the following statistical data:
-      a. 	Number of errors and warnings (Priority 1)
-      b. 	Overall run time (Priority 3)
-      c.  The complete number of messages which have been parsed (Priority 3)
-5. 	Refresh the UI when new statistical data has been received (Priority 1)
+1. Analysis of multiple log files at the same time (Priority 1)
+2. Extraction of the following data:
+   - Number of errors and warnings (Priority 1)
+   - Overall run time (Priority 3)
+   - The complete number of messages which have been parsed (Priority 3)
+3. Extendable to analyze more data from the log files in the future (Priority 2)
+4. Display the following statistical data:
+   - Number of errors and warnings (Priority 1)
+   - Overall run time (Priority 3)
+   - The complete number of messages which have been parsed (Priority 3)
+5. Refresh the UI when new statistical data has been received (Priority 1)
 
 ## Solution WorkFlow 
 <img alt="portfolio_view" src="https://github.com/gitdamilare/TecanSolution/blob/main/workflow.png">
