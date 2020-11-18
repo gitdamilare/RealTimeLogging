@@ -12,7 +12,7 @@
     "NewUpdateSignalURL": "https://reportlogfunctionapp.azurewebsites.net/api/updateui"
   },
   "ConnectionStrings": {
-    "Localsource": "",
+    "Localsource": "<Enter Connection String>",
     "Azuresource": ""
   }
 }
