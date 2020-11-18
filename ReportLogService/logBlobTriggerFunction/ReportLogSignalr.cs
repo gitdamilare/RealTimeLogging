@@ -14,6 +14,10 @@ namespace logBlobTriggerFunction
 {
     public static class ReportLogSignalr
     {
+        /// <summary>The Function is called via HTTP Post Request, 
+        /// it negotiate a connection and sends information about the connection to a connect device.
+        /// The first function to be called
+        /// </summary
         [FunctionName("negotiate")]
         public static SignalRConnectionInfo Negotiate(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
@@ -23,6 +27,13 @@ namespace logBlobTriggerFunction
         }
 
 
+
+        /// <summary>The Function is called via HTTP Post Request 
+        /// <example>For example: http://localhost7701/updateui 
+        /// <param>{"data" : 1}</param>
+        /// result-  push {"data" : 1} to all connected devices
+        /// </example>
+        /// </summary>
         [FunctionName("updateui")]
         public static Task UpdateUI(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post")] object message,

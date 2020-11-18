@@ -36,35 +36,40 @@ namespace logBlobTriggerFunction
 			var connectionString = config.GetConnectionString("Azuresource");
 
 
-
-			var dataTransformation = await LogTransformationAsync(myBlob, log);
-			if (dataTransformation.IsSuccess)
+			//Only proceed with XML files and XML with content
+			if (name.Contains("xml") && myBlob.Length > 0)
 			{
-				watch.Start();
-				var dataInsertion = await SqlHelper.InsertLogData(dataTransformation.Logs, log, connectionString);
-				watch.Stop();
-				var executionTime = $"{watch.ElapsedMilliseconds}";
-				if (dataInsertion.IsSuccess)
+				var dataTransformation = await LogTransformationAsync(myBlob, log);
+				if (dataTransformation.IsSuccess)
 				{
+					watch.Start();
+					var dataInsertion = await SqlHelper.InsertLogData(dataTransformation.Logs, log, connectionString);
+					watch.Stop();
+					var executionTime = $"{watch.ElapsedMilliseconds}";
+					if (dataInsertion.IsSuccess)
+					{
 
-					var processLogInsertion = await SqlHelper.InsertLogProcessData(new LogProcessData { FileName = name, ExecutionTime = executionTime }, log, connectionString);
-					var (IsSuccess, outputDto, _) = await SqlHelper.SelectReportLogCount(log, connectionString);
+						var processLogInsertion = await SqlHelper.InsertLogProcessData(new LogProcessData { FileName = name, ExecutionTime = executionTime }, log, connectionString);
+						var (IsSuccess, outputDto, _) = await SqlHelper.SelectReportLogCount(log, connectionString);
 
-					if (IsSuccess)
-						await NotifySignalrAsync(outputDto, config);
+						if (IsSuccess)
+							await NotifySignalrAsync(outputDto, config);
 
-					if (processLogInsertion.IsSuccess)
-						log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+						if (processLogInsertion.IsSuccess)
+							log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+					}
 				}
 			}
+
 
 		}
 
 
 		#region LogTransformation
+		// This method converts the blob(XML) to a Datable </summary>
 		public static async Task<(bool IsSuccess, DataTable Logs, string Message)> LogTransformationAsync(Stream inputData, ILogger log)
 		{
-			//List<Log> result = new List<Log>();
+
 			DataTable dt = SqlHelper.DataTableCreator();
 			try
 			{
@@ -116,7 +121,7 @@ namespace logBlobTriggerFunction
 		#endregion
 
 		#region Notification SignalR
-		//Make a Call to SingalR
+		//This method fires up the SignalR so the UI can be notified about the new update in the DB
 		public static async Task NotifySignalrAsync(ReportLogOutputDto inputDto, IConfiguration configuration)
 		{
 

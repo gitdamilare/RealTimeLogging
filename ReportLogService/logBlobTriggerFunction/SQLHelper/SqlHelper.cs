@@ -12,15 +12,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
+
+/// <summary>
+///	SQL Helper Class dor accessing make simple Database Query
+/// </summary>
 namespace logBlobTriggerFunction.SQLHelper
 {
 	public static class SqlHelper
 	{
 
+		// This method inserts record into the AppFlattenLogData Table
+		// Using SQLBULKCOPY for better performance
 		public static async Task<(bool IsSuccess, string Message)> InsertLogData(DataTable logData, ILogger log, string connectionString)
 		{
 			
-
 			try
 			{
 				SqlBulkCopy bulkCopy = new SqlBulkCopy(connectionString);
@@ -35,6 +40,7 @@ namespace logBlobTriggerFunction.SQLHelper
 			}
 		}
 
+		// This method inserts record into the AppLogProcessData Table 
 		public static async Task<(bool IsSuccess, string Message)> InsertLogProcessData(LogProcessData logData, ILogger log, string connectionString)
 		{
 			
@@ -67,7 +73,7 @@ namespace logBlobTriggerFunction.SQLHelper
 			}
 		}
 
-
+		// This method fetch counter report, for Real-Time communication
 		public static async Task<(bool IsSuccess, ReportLogOutputDto outputDto, string Message)> SelectReportLogCount(ILogger log, string connectionString)
 		{
 
@@ -102,32 +108,6 @@ namespace logBlobTriggerFunction.SQLHelper
 			}
 		}
 
-		public static async Task<(bool IsSuccess, IList<FlattenLogOutputDto> outputDto, string Message)> SelectReportLog(ILogger log = null, string connectionString = "")
-		{
-
-			connectionString = "Server=tcp:tecansolution.database.windows.net,1433;Initial Catalog=ReportLogDb;Persist Security Info=False;User ID=damilare;Password=Oyebanjidami95@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-			string queryLogSql = "SELECT Id, DateCreated, MessageId, Timestamp, Channel, Severity, Type, Message, ActivityName  From AppFlattenLogData";
-
-
-			try
-			{
-				using (var conn = new SqlConnection(connectionString))
-				{
-					using (SqlCommand cmd = conn.CreateCommand())
-					{
-						conn.Open();
-						var result =  conn.QueryAsync<FlattenLogOutputDto>(queryLogSql).Result.ToList();
-						return (true, result, string.Empty);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				if(log != null)
-					log.LogError($"An Error Occured in InsertLogData Function : {ex.Message}");
-				return (false, null, ex.Message);
-			}
-		}
 
 		public static string SqlCounterStatmentGenerator(int condition = 0, bool isBase = false)
 		{
@@ -181,6 +161,7 @@ namespace logBlobTriggerFunction.SQLHelper
 			}
 		}
 
+		[Obsolete("No Longer in use, Check out LogTransformationAsync method")]
 		public static async Task<(bool IsSuccess, List<Log> Logs, string Message)> DataTransformationAsync(Stream inputData, ILogger log)
 		{
 			List<Log> result = new List<Log>();
@@ -211,10 +192,6 @@ namespace logBlobTriggerFunction.SQLHelper
 							}
 						}
 					}
-					//XmlDataLog xmlDataLog = (XmlDataLog)reader.Deserialize(stream);
-					//bool isNotNull = xmlDataLog.GetType()
-					//							.GetProperties().All(p => p.GetValue(xmlDataLog) != null);
-
 
 					await Task.Delay(1);
 					if (result.Count > 0)
@@ -232,5 +209,33 @@ namespace logBlobTriggerFunction.SQLHelper
 			}
 
 		}
+
+		//public static async Task<(bool IsSuccess, IList<FlattenLogOutputDto> outputDto, string Message)> SelectReportLog(ILogger log = null, string connectionString = "")
+		//{
+
+		//	connectionString = "Server=tcp:tecansolution.database.windows.net,1433;Initial Catalog=ReportLogDb;Persist Security Info=False;User ID=damilare;Password=Oyebanjidami95@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+		//	string queryLogSql = "SELECT Id, DateCreated, MessageId, Timestamp, Channel, Severity, Type, Message, ActivityName  From AppFlattenLogData";
+
+
+		//	try
+		//	{
+		//		using (var conn = new SqlConnection(connectionString))
+		//		{
+		//			using (SqlCommand cmd = conn.CreateCommand())
+		//			{
+		//				conn.Open();
+		//				var result =  conn.QueryAsync<FlattenLogOutputDto>(queryLogSql).Result.ToList();
+		//				return (true, result, string.Empty);
+		//			}
+		//		}
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		if(log != null)
+		//			log.LogError($"An Error Occured in InsertLogData Function : {ex.Message}");
+		//		return (false, null, ex.Message);
+		//	}
+		//}
+
 	}
 }

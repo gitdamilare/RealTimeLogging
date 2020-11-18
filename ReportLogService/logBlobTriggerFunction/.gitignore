@@ -4,6 +4,9 @@
 # Azure Functions localsettings file
 local.settings.json
 
+#host file
+host.json
+
 # User-specific files
 *.suo
 *.user
@@ -263,5 +266,3 @@ paket-files/
 __pycache__/
 *.pyc
 
-#host file
-*.json
