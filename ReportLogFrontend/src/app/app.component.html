@@ -59,14 +59,14 @@
               <thead>
                 <tr>
                   <th>FileName</th>
-                  <th>Execution Time(ms)</th>
+                  <th>Execution Time (sec)</th>
                   <th>Timestamp</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of fileLogsTable.data">
                   <td>{{data.fileName}}</td>
-                  <td>{{data.executionTime}}</td>
+                  <td>{{data.executionTime * 0.001 | number}}</td>
                   <td>{{data.dateCreated}}</td>
                 </tr>
               </tbody>
