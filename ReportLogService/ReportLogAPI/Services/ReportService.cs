@@ -37,6 +37,8 @@ namespace ReportLogAPI.Services
 			_flattenlogenericRepository = flattenlogenericRepository;
 			_reportLogDbContext = reportLogDbContext;
 		}
+
+		[Obsolete("No Longer Supported")]
 		public async Task<(bool IsSucess, string Message)> InsertLogAsync(Log inputDto)
 		{
 			try
@@ -61,6 +63,7 @@ namespace ReportLogAPI.Services
 		}
 
 
+		[Obsolete("AzureFunction, InsertLogData(..) now handles this Operation")]
 		public async Task<(bool IsSucess, string Message)> InsertAllLogFlattenAsync(List<Log> inputDto)
 		{
 			try
@@ -86,6 +89,7 @@ namespace ReportLogAPI.Services
 		}
 
 
+		[Obsolete("No Longer Supported")]
 		public async Task<(bool IsSucess, string Message)> InsertAllLogAsync(List<Log> inputDto)
 		{
 			try
@@ -120,6 +124,7 @@ namespace ReportLogAPI.Services
 			}
 		}
 
+		//This service returns the statistical count 
 		public async Task<(bool IsSucess, ReportLogOutputDto outputDto, string Message)> GetReportCount()
 		{
 			try

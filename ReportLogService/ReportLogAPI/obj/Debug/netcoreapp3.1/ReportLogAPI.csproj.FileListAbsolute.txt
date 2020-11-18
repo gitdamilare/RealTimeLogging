@@ -188,7 +188,6 @@ C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Debug\ne
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Debug\netcoreapp3.1\Azure.Storage.Files.Shares.dll
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Azure.dll
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Debug\netcoreapp3.1\ICSharpCode.SharpZipLib.dll
-C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Debug\netcoreapp3.1\libman.json
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\MainReportLogAPI - Web Deploy\profile.arm.json
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Debug\netcoreapp3.1\DotNetZip.dll
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\obj\Debug\netcoreapp3.1\ReportLogAPI.csproj.CoreCompileInputs.cache

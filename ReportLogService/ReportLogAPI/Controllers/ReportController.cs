@@ -9,7 +9,7 @@ using ReportLogAPI.Interface;
 using ReportLogAPI.ModelDto;
 using ReportLogAPI.Repos;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace ReportLogAPI.Controllers
 {
@@ -29,6 +29,7 @@ namespace ReportLogAPI.Controllers
 			_reportService = reportService;
 			_logger = logger;
 		}
+
 		// GET: api/<ReportController>
 		[HttpGet]
 		public async Task<ActionResult> GetMiniReport()
@@ -49,7 +50,7 @@ namespace ReportLogAPI.Controllers
 			}
 		}
 
-		// GET: api/<ReportController>/1
+		// GET: api/<ReportController>/1/10
 		[HttpGet("{page}/{pageSize}")]
 		public async Task<ActionResult> GetLogData(int page, int pageSize)
 		{

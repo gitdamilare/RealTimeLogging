@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ReportLogAPI.Extentions
 {
 	//Service Extention to be registerd in  Startup Class 
-	//to addservices to the container.
+	//to add services to the container.
 	public static class ServiceExtention
 	{
 		public static IServiceCollection ConfigureCors(this IServiceCollection services)

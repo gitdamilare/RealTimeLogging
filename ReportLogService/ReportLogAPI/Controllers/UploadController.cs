@@ -28,40 +28,6 @@ namespace ReportLogAPI.Controllers
 			_reportService = reportService;
 		}
 
-		// POST api/<UploadController>
-		[HttpPost]
-		private async Task<ActionResult> UploadXmlFile([FromForm] IFormFileCollection uploadedFiles)
-		{
-			var uploads = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads"); // Save to Blob
-			var file = uploadedFiles[0];
-			var filePath = Path.Combine(uploads, file.FileName);
-			if(file.FileName.Length > 0)
-			{
-				try
-				{
-					using (var fileStream = new FileStream(filePath, FileMode.Create))
-					{
-						await file.CopyToAsync(fileStream);
-					}
-					var result = await _logSerializer.DataTransformationAsync(filePath);
-					
-					if (result.IsSuccess)
-					{
-						await _reportService.InsertAllLogAsync(result.Logs);
-						return Ok(new ReturnModel<Log>{Data = result.Logs, Error = false, Message = String.Empty });
-					}
-					return BadRequest(result.Message);
-				}
-				catch (Exception ex)
-				{
-					return BadRequest(ex.Message);
-					throw;
-				}
-				
-			}
-			return BadRequest("Error , File is Empty");
-		}
-	
 		[HttpPost]
 		public async Task<ActionResult> UploadZipFiles([FromForm] IFormFileCollection uploadedFiles)
 		{
@@ -75,22 +41,6 @@ namespace ReportLogAPI.Controllers
 			catch (Exception ex)
 			{
 				return BadRequest(ex.Message);
-				throw;
-			}
-		}
-
-		private static void Encode(string path, string text)
-		{
-			try
-			{
-				using (StreamWriter writer = new StreamWriter(path))
-				{
-					writer.Write(text);
-				}
-			}
-			catch (Exception)
-			{
-
 				throw;
 			}
 		}

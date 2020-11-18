@@ -8,6 +8,7 @@ using ReportLogAPI.Interface;
 
 namespace ReportLogAPI.HubServices
 {
+	[Obsolete("Logic moved to Azure Signal R and Azure Function")]
 	public class ReportLogHub : Hub
 	{
 		private readonly ILogger<ReportLogHub> _logger;

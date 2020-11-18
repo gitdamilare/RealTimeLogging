@@ -35,12 +35,15 @@ namespace ReportLogAPI
 			
 			services.AddControllers();
 			services.AddAutoMapper(typeof(Startup).Assembly);
-			services.AddSignalR(hubOptions =>
-			{
-				hubOptions.EnableDetailedErrors = true;
-				hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(60000);
-			});
 
+
+			//services.AddSignalR(hubOptions =>
+			//{
+			//	hubOptions.EnableDetailedErrors = true;
+			//	hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(60000);
+			//});
+
+			//Swagger Setup
 			services.AddSwaggerGen(opt =>
 			{
 				opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
@@ -50,11 +53,11 @@ namespace ReportLogAPI
 				});
 			});
 
-
 			/*--------Service Extentions---------------*/
 			services.ConfigureCors();
 			services.ConfigureSqlContext(Configuration);
 			services.RegisterAppServices();
+
 			services.AddAzureClients(builder =>
 			{
 				builder.AddBlobServiceClient(Configuration["ConnectionStrings:BlobStorage:blob"], preferMsi: true);
@@ -76,19 +79,10 @@ namespace ReportLogAPI
 			{
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
 			});
-			//app.UseSignalR(routes =>
-			//{
-			//	routes.MapHub<ReportLogHub>("/reportLogHub", options =>
-			//	{
-			//		options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling;
-			//	});
-			//});
 
 			app.UseRouting();
 
 			app.UseAuthorization();
-
-
 
 			app.UseEndpoints(endpoints =>
 			{

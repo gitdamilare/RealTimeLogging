@@ -59,6 +59,7 @@ namespace ReportLogAPI.Repos
             await _reportLogDbContext.SaveChangesAsync();
         }
 
+		//Better Perfomance Insert for EFCore
 		public void BulkInsert(IEnumerable<T> entity)
 		{
 			using(TransactionScope scope = new TransactionScope())

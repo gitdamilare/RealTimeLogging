@@ -14,6 +14,7 @@ using TableDependency.SqlClient.Base.EventArgs;
 
 namespace ReportLogAPI.Extentions
 {
+	[Obsolete("No Longer Supported")]
 	public class ReportDatabaseSubscription : IDatabaseSubscription
 	{
 		public ILogger<ReportDatabaseSubscription> _logger { get; set; }

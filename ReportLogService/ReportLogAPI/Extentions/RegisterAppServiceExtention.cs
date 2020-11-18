@@ -15,7 +15,6 @@ namespace ReportLogAPI.Extentions
 		{
 			services.AddScoped<ILogProcessorService, LogProcessorService>();
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-			services.AddScoped<IMainLogDataRepo, MainLogDataRepo>();
 			services.AddScoped<IReportService, ReportService>();
 			services.AddScoped<IAzureBlobService, AzureBlobService>();
 			services.AddSingleton<ReportDatabaseSubscription, ReportDatabaseSubscription>();

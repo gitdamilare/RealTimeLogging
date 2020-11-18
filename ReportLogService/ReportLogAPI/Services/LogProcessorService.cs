@@ -33,7 +33,9 @@ namespace ReportLogAPI.Services
 			_reportService = reportService;
 			_azureBlobService = azureBlobService;
 			_logProcessData = logProcessData;
-		}	
+		}
+
+		[Obsolete("AzureFunction, LogTransformationAsync(..) now handles this Operation")]
 		public async Task<(bool IsSuccess, List<Log> Logs, string Message)> DataTransformationAsync(string filePath)
 		{
 			List<Log> result = new List<Log>();
@@ -86,39 +88,8 @@ namespace ReportLogAPI.Services
 
 		}
 
-		public async Task<(bool IsSuccess, string Message)> LocalUploader(IFormFileCollection uploadedFiles)
-		{
-			var uploads = Path.Combine("uploads", "uploads"); // Save to Blob
-			var file = uploadedFiles[0];
-			var filePath = Path.Combine(uploads, file.FileName);
-			if (file.FileName.Length > 0)
-			{
-				try
-				{
-					using (var fileStream = new FileStream(filePath, FileMode.Create))
-					{
-						await file.CopyToAsync(fileStream);
-					}
-					var result = await DataTransformationAsync(filePath);
-					
-					if (result.IsSuccess)
-					{
-						//await _reportService.InsertLogAsync(result.Logs);
-						return (true, "Success");
-					}
-					return (false, result.Message);
-				}
-				catch (Exception ex)
-				{
-					return (false, $"Error Occured at LocalUploader, {ex.Message}");
-					throw;
-				}
-
-			}
-			return (false, "Error Occured at LocalUploader, File does not exist");
-		}
-
-		
+		//This Function takes the incoming zipped files
+		//Extract the file and saves to uploads to Azure blob container
 		public async Task<(bool IsSucess, List<string> output,  string Message)> UploadZipFile(IFormFileCollection uploadedFiles)
 		{
 			var uploads = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads"); // Save to Blob
@@ -141,7 +112,6 @@ namespace ReportLogAPI.Services
 									{
 										await file.CopyToAsync(fileStream);
 									}
-
 
 									using (ZipArchive archive = ZipFile.OpenRead(filePath))
 									{
@@ -194,21 +164,8 @@ namespace ReportLogAPI.Services
 			return (false, outputDto, string.Empty);
 
 		}
-		private async Task Encode(string path, string text)
-		{
-			try
-			{
-				using (StreamWriter writer = new StreamWriter(path))
-				{
-					await writer.WriteAsync(text);
-				}
-			}
-			catch (Exception ex)
-			{
-				_logger.LogError($"An Error Occured during Encode, {ex.Message}");			
-			}
-		}
 
+		//Checks if the FileName already exist 
 		private async Task<bool> CheckIfFileExist(string fileName)
 		{
 			var logProcessData = await _logProcessData.GetAllAsync();
@@ -220,6 +177,7 @@ namespace ReportLogAPI.Services
 
 		}
 
+		//Strips the extention from a file
 		private string GetFileName(string fileName)
 		{
 			int fileExtPos = fileName.LastIndexOf(".");
@@ -227,5 +185,6 @@ namespace ReportLogAPI.Services
 				fileName = fileName.Substring(0, fileExtPos);
 			return fileName;
 		}
+
 	}
 }

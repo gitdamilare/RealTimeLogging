@@ -12,7 +12,6 @@ namespace ReportLogAPI.Interface
 	public interface ILogProcessorService
 	{
 		public Task<(bool IsSuccess, List<Log> Logs, string Message)> DataTransformationAsync(string filePath);
-		public Task<(bool IsSuccess, string Message)> LocalUploader(IFormFileCollection uploadedFiles);
 		public Task<(bool IsSucess, List<string> output, string Message)> UploadZipFile(IFormFileCollection uploadedFiles);
 	}
 }
