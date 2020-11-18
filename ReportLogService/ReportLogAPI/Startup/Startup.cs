@@ -37,11 +37,11 @@ namespace ReportLogAPI
 			services.AddAutoMapper(typeof(Startup).Assembly);
 
 
-			//services.AddSignalR(hubOptions =>
-			//{
-			//	hubOptions.EnableDetailedErrors = true;
-			//	hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(60000);
-			//});
+			services.AddSignalR(hubOptions =>
+			{
+				hubOptions.EnableDetailedErrors = true;
+				hubOptions.KeepAliveInterval = TimeSpan.FromMinutes(60000);
+			});
 
 			//Swagger Setup
 			services.AddSwaggerGen(opt =>

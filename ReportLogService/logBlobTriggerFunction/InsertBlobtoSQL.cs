@@ -60,6 +60,10 @@ namespace logBlobTriggerFunction
 					}
 				}
 			}
+			else
+			{
+				log.LogInformation($"C# Blob trigger function Unable to Process blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+			}
 
 
 		}
