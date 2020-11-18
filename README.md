@@ -30,3 +30,25 @@ if you are still facing some issues check the following command and resolve the 
 ```
 npm audix fix
 ```
+
+## How Services and Azure Functions Locally 
+** All Restful APIs,Azure functions, Database are hosted on Azure already and connected to the Frontend project **
+_ Running just the frontend gets the application fired up _
+
+* Clone this project 
+* Open the ReportLogFrontend folder in VS Code and then run the following command to get all the packages in your project.
+```
+npm install 
+```
+* Now you can run the frontend project with following command. *Note: if it not running on port 4200, make changes in package.json and angular.json // or add --port 4200 to command
+```
+ng serve
+```
+if you are still facing some issues check the following command and resolve the issues if you have any.
+```
+npm audix fix
+```
+
+## Performance Improvement Plan
+* When file is uploaded, Process it and then make a Signal R call to notify all connected devices before saving to Database
+* Use Azure CosmosDB or MongoDB, a little performance bump up 
