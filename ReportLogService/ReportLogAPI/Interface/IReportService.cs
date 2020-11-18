@@ -14,7 +14,7 @@ namespace ReportLogAPI.Interface
 		Task<(bool IsSucess, string Message)> InsertAllLogAsync(List<Log> logs);
 		Task<(bool IsSucess, string Message)> InsertAllLogFlattenAsync(List<Log> inputDto);
 		Task<(bool IsSucess, ReportLogOutputDto outputDto, string Message)> GetReportCount();
-		Task<(bool IsSucess, PagedResult<FlattenLogOutput> outputDto, string Message)> GetReportLog(int page = 1, int take = 50);
+		Task<(bool IsSucess, PagedResult<FlattenLogOutput> outputDto, string Message)> GetReportLog(int page = 1, int take = 10);
 
 	}
 }

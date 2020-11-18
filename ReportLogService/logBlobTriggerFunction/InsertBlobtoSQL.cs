@@ -18,6 +18,7 @@ using logBlobTriggerFunction.SQLHelper;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using Newtonsoft.Json.Serialization;
 
 namespace logBlobTriggerFunction
 {
@@ -29,10 +30,12 @@ namespace logBlobTriggerFunction
 			var watch = System.Diagnostics.Stopwatch.StartNew();
 			var config = new ConfigurationBuilder()
 							 .SetBasePath(context.FunctionAppDirectory)
-							 .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+							 .AddJsonFile("host.json", optional: true, reloadOnChange: true)
 							 .AddEnvironmentVariables()
 							 .Build();
 			var connectionString = config.GetConnectionString("Azuresource");
+
+
 
 			var dataTransformation = await LogTransformationAsync(myBlob, log);
 			if (dataTransformation.IsSuccess)
@@ -48,7 +51,7 @@ namespace logBlobTriggerFunction
 					var (IsSuccess, outputDto, _) = await SqlHelper.SelectReportLogCount(log, connectionString);
 
 					if (IsSuccess)
-						await NotifySignalrAsync(outputDto);
+						await NotifySignalrAsync(outputDto, config);
 
 					if (processLogInsertion.IsSuccess)
 						log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
@@ -114,27 +117,16 @@ namespace logBlobTriggerFunction
 
 		#region Notification SignalR
 		//Make a Call to SingalR
-		public static async Task NotifySignalrAsync(ReportLogOutputDto inputDto)
+		public static async Task NotifySignalrAsync(ReportLogOutputDto inputDto, IConfiguration configuration)
 		{
+
+			var updateUIUrl = configuration["SignalRUrl:NewUpdateSignalURL"];
 
 			using var client = new HttpClient();
-			string json = JsonConvert.SerializeObject(inputDto);
+			string json = JsonConvert.SerializeObject(inputDto, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
 			var requestData = new StringContent(json, Encoding.UTF8, "application/json");
-			var response = await client.PostAsync(String.Format("http://localhost:7071/api/updateui"), requestData);
+			var response = await client.PostAsync(String.Format(updateUIUrl), requestData);
 		}
 		#endregion
-
-
-		private static DataTable ObjToDataTable<T>(T obj) where T : class
-		{
-			DataTable dt = new DataTable();
-			PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
-			foreach (PropertyDescriptor info in props)
-			{
-				dt.Columns.Add(info.Name, info.PropertyType);
-			}
-			dt.AcceptChanges();
-			return dt;
-		}
 	}
 }

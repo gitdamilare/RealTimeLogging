@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using logBlobTriggerFunction.SQLHelper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace logBlobTriggerFunction
@@ -17,19 +23,6 @@ namespace logBlobTriggerFunction
         }
 
 
-        [FunctionName("messages")]
-        public static Task SendMessage(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post")] object message,
-        [SignalR(HubName = "reportlog")] IAsyncCollector<SignalRMessage> signalRMessages)
-        {
-            return signalRMessages.AddAsync(
-                new SignalRMessage
-                {
-                    Target = "newMessage",
-                    Arguments = new[] { message }
-                });
-        }
-
         [FunctionName("updateui")]
         public static Task UpdateUI(
         [HttpTrigger(AuthorizationLevel.Anonymous, "post")] object message,
@@ -41,6 +34,6 @@ namespace logBlobTriggerFunction
                     Target = "newUpdate",
                     Arguments = new[] { message }
                 });
-        }
+        } 
     }
 }

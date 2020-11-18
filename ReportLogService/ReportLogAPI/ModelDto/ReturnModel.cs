@@ -5,6 +5,18 @@ using System.Threading.Tasks;
 
 namespace ReportLogAPI.ModelDto
 {
+    public class ReturnModel 
+    {
+        public bool Error { get; set; } = false;
+        public string Message { get; set; }
+        //public object Data { get; set; }
+
+        public ReturnModel(bool error, string message)
+		{
+            Error = error;
+            Message = message;     
+        }
+    }
     public class ReturnModel<T> where T : class
     {
         public bool Error { get; set; } = false;

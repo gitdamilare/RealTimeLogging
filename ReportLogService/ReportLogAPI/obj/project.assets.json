@@ -115,6 +115,20 @@
           "lib/netstandard2.0/Azure.Storage.Queues.dll": {}
         }
       },
+      "DotNetZip/1.14.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Permissions": "[4.5.0, 5.0.0)",
+          "System.Text.Encoding.CodePages": "[4.5.0, 5.0.0)",
+          "System.Text.Encoding.Extensions": "[4.3.0, 5.0.0)"
+        },
+        "compile": {
+          "lib/netstandard2.0/DotNetZip.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/DotNetZip.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1435,6 +1449,15 @@
             "assetType": "native",
             "rid": "win-x86"
           }
+        }
+      },
+      "SharpZipLib/1.3.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/ICSharpCode.SharpZipLib.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ICSharpCode.SharpZipLib.dll": {}
         }
       },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.2": {
@@ -2760,7 +2783,7 @@
           "System.Security.Principal.Windows": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Security.AccessControl.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.AccessControl.dll": {}
@@ -3014,7 +3037,7 @@
           "System.Security.AccessControl": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Security.Permissions.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Permissions.dll": {}
@@ -3038,7 +3061,7 @@
           "Microsoft.NETCore.Platforms": "2.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Security.Principal.Windows.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
@@ -3500,6 +3523,23 @@
         "lib/netstandard2.0/Azure.Storage.Queues.dll",
         "lib/netstandard2.0/Azure.Storage.Queues.xml",
         "pkgicon.png"
+      ]
+    },
+    "DotNetZip/1.14.0": {
+      "sha512": "FvOifBaHwTFbF7zYmG0Fh/3FhxtxUoUHQRk8lpedkrF2SNqNjcU/ANAdy0YF+SjScEV/mSWFd8CyUlfErW3YPA==",
+      "type": "package",
+      "path": "dotnetzip/1.14.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotnetzip.1.14.0.nupkg.sha512",
+        "dotnetzip.nuspec",
+        "lib/net40/DotNetZip.dll",
+        "lib/net40/DotNetZip.pdb",
+        "lib/net40/DotNetZip.xml",
+        "lib/netstandard2.0/DotNetZip.dll",
+        "lib/netstandard2.0/DotNetZip.pdb",
+        "lib/netstandard2.0/DotNetZip.xml"
       ]
     },
     "Microsoft.AspNetCore.Authorization/2.2.0": {
@@ -5572,6 +5612,23 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "SharpZipLib/1.3.0": {
+      "sha512": "pILnzAZBJLZ4HEHqFc044yHyS+CLrieYICRfLb5G/odk//7m8RrcJ7b9jfZevXa90PCjHVGaD1tTZopez/1TZw==",
+      "type": "package",
+      "path": "sharpziplib/1.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/ICSharpCode.SharpZipLib.dll",
+        "lib/net45/ICSharpCode.SharpZipLib.pdb",
+        "lib/net45/ICSharpCode.SharpZipLib.xml",
+        "lib/netstandard2.0/ICSharpCode.SharpZipLib.dll",
+        "lib/netstandard2.0/ICSharpCode.SharpZipLib.pdb",
+        "lib/netstandard2.0/ICSharpCode.SharpZipLib.xml",
+        "sharpziplib.1.3.0.nupkg.sha512",
+        "sharpziplib.nuspec"
       ]
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.2": {
@@ -10390,6 +10447,7 @@
       "Azure.Storage.Blobs >= 12.3.0",
       "Azure.Storage.Files.Shares >= 12.1.0",
       "Azure.Storage.Queues >= 12.2.0",
+      "DotNetZip >= 1.14.0",
       "Microsoft.AspNetCore.SignalR.Core >= 1.1.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.9",
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.9",
@@ -10399,6 +10457,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.4",
       "NLog.Web.AspNetCore >= 4.9.3",
       "ReportLogEntityFrameworkCore >= 1.0.0",
+      "SharpZipLib >= 1.3.0",
       "SqlTableDependency >= 8.5.8",
       "Swashbuckle.AspNetCore >= 5.6.3",
       "WindowsAzure.Storage >= 9.3.3"
@@ -10465,6 +10524,10 @@
             "target": "Package",
             "version": "[12.2.0, )"
           },
+          "DotNetZip": {
+            "target": "Package",
+            "version": "[1.14.0, )"
+          },
           "Microsoft.AspNetCore.SignalR.Core": {
             "target": "Package",
             "version": "[1.1.0, )"
@@ -10498,6 +10561,10 @@
           "NLog.Web.AspNetCore": {
             "target": "Package",
             "version": "[4.9.3, )"
+          },
+          "SharpZipLib": {
+            "target": "Package",
+            "version": "[1.3.0, )"
           },
           "SqlTableDependency": {
             "target": "Package",

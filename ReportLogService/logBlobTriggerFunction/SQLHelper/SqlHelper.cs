@@ -102,6 +102,33 @@ namespace logBlobTriggerFunction.SQLHelper
 			}
 		}
 
+		public static async Task<(bool IsSuccess, IList<FlattenLogOutputDto> outputDto, string Message)> SelectReportLog(ILogger log = null, string connectionString = "")
+		{
+
+			connectionString = "Server=tcp:tecansolution.database.windows.net,1433;Initial Catalog=ReportLogDb;Persist Security Info=False;User ID=damilare;Password=Oyebanjidami95@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+			string queryLogSql = "SELECT Id, DateCreated, MessageId, Timestamp, Channel, Severity, Type, Message, ActivityName  From AppFlattenLogData";
+
+
+			try
+			{
+				using (var conn = new SqlConnection(connectionString))
+				{
+					using (SqlCommand cmd = conn.CreateCommand())
+					{
+						conn.Open();
+						var result =  conn.QueryAsync<FlattenLogOutputDto>(queryLogSql).Result.ToList();
+						return (true, result, string.Empty);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				if(log != null)
+					log.LogError($"An Error Occured in InsertLogData Function : {ex.Message}");
+				return (false, null, ex.Message);
+			}
+		}
+
 		public static string SqlCounterStatmentGenerator(int condition = 0, bool isBase = false)
 		{
 			if (isBase)

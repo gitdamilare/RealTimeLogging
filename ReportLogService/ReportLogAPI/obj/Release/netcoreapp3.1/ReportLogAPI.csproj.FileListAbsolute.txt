@@ -181,3 +181,7 @@ C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\obj\Release\
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\obj\Release\netcoreapp3.1\ReportLogAPI.dll
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\obj\Release\netcoreapp3.1\ReportLogAPI.pdb
 C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\obj\Release\netcoreapp3.1\ReportLogAPI.genruntimeconfig.cache
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Release\netcoreapp3.1\ICSharpCode.SharpZipLib.dll
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Release\netcoreapp3.1\libman.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\MainReportLogAPI - Web Deploy\profile.arm.json
+C:\Users\damil\Desktop\Tecan\solution\ReportLogService\ReportLogAPI\bin\Release\netcoreapp3.1\DotNetZip.dll

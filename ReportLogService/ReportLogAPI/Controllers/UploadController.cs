@@ -68,7 +68,9 @@ namespace ReportLogAPI.Controllers
 			try
 			{
 				var result = await _logSerializer.UploadZipFile(uploadedFiles);
-				return Ok("Good");
+				if(result.IsSucess)
+					return Ok(new ReturnModel<string> { Data = result.output , Error = false, Message = String.Empty });
+				return BadRequest(new ReturnModel<string>{ Data = result.output,  Error = true, Message = result.Message});
 			}
 			catch (Exception ex)
 			{

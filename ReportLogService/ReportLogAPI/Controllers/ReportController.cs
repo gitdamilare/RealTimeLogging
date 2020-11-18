@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReportLogAPI.Interface;
 using ReportLogAPI.ModelDto;
+using ReportLogAPI.Repos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,17 +50,17 @@ namespace ReportLogAPI.Controllers
 		}
 
 		// GET: api/<ReportController>/1
-		[HttpGet("{page}")]
-		public async Task<ActionResult> GetLogData(int page)
+		[HttpGet("{page}/{pageSize}")]
+		public async Task<ActionResult> GetLogData(int page, int pageSize)
 		{
 			try
 			{
-				var (IsSucess, outputDto, Message) = await _reportService.GetReportLog(page: page);
+				var (IsSucess, outputDto, Message) = await _reportService.GetReportLog(page: page, take : pageSize);
 				if (IsSucess)
 				{
-					return Ok(new ReturnModel<FlattenLogOutput> { Data = outputDto.Results.ToList(), Error = false, Message = String.Empty });
+					return Ok(new ReturnModelObject<PagedResult<FlattenLogOutput>> { Data = outputDto, Error = false, Message = String.Empty });
 				}
-				return Ok(new ReturnModel<FlattenLogOutput> { Data = null, Error = true, Message = Message });
+				return Ok(new ReturnModelObject<PagedResult<FlattenLogOutput>> { Data = null, Error = true, Message = Message });
 			}
 			catch (Exception ex)
 			{

@@ -2,7 +2,6 @@
   "swagger": "2.0",
   "info": {
     "title": "Log Report API Demo",
-    "description": "This is a demo of how to use Swagger in Web API",
     "version": "v1"
   },
   "paths": {
@@ -18,7 +17,7 @@
         }
       }
     },
-    "/api/Report/{page}": {
+    "/api/Report/{page}/{pageSize}": {
       "get": {
         "tags": [
           "Report"
@@ -27,6 +26,13 @@
           {
             "in": "path",
             "name": "page",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "path",
+            "name": "pageSize",
             "required": true,
             "type": "integer",
             "format": "int32"

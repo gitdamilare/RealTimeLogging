@@ -151,10 +151,11 @@ namespace ReportLogAPI.Services
 		{
 			try
 			{
+				var totalCount = _reportLogDbContext.FlattenLogDatas.Count();
 				var result = _reportLogDbContext.FlattenLogDatas
 												.AsNoTracking()
-												.Select(xx => new FlattenLogOutput() 
-												{ 
+												.Select(xx => new FlattenLogOutput()
+												{
 													Id = xx.Id,
 													MessageId = xx.MessageId,
 													Message = xx.Message,
@@ -163,7 +164,7 @@ namespace ReportLogAPI.Services
 													ActivityName = xx.ActivityName,
 													Severity = xx.Severity.ToString(),
 													Timestamp = xx.Timestamp,
-													Type =xx.Type														
+													Type = xx.Type,
 												}).GetPaged(page, take);
 
 				return (true, result, string.Empty);
@@ -176,6 +177,5 @@ namespace ReportLogAPI.Services
 				return (false, null, err);
 			}
 		}
-
 	}
 }

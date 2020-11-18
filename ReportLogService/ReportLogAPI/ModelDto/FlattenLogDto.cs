@@ -1,4 +1,5 @@
-﻿using ReportLogEntityFrameworkCore.DbModel;
+﻿using ReportLogAPI.Repos;
+using ReportLogEntityFrameworkCore.DbModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,18 @@ namespace ReportLogAPI.ModelDto
 		public string Type { get; set; }
 		public string Message { get; set; }
 		public string ActivityName { get; set; }
+		
+	}
+
+	public class LogDataOutPutDto
+	{
+		public PagedResult<FlattenLogOutput> Data { get; set; }
+		public int TotalCount { get; set; }
+
+		public LogDataOutPutDto(PagedResult<FlattenLogOutput> data, int totalCount)
+		{
+			Data = data;
+			TotalCount = totalCount;
+		}
 	}
 }

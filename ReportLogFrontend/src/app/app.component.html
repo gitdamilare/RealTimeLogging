@@ -1,0 +1,124 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo">
+      <h2 nz-typography class="logo">ngLog Dashboard</h2>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item (click)="toggleFileUploadModal()">Upload</li>
+    </ul>
+  </nz-header>
+
+
+
+  <nz-content>
+
+    <div class="inner-content">
+      <nz-card [nzBodyStyle]="{'padding': '16px'}" *ngIf="showIncomingUpdateAlert"  style="background: #ECECEC;">
+        <!--<nz-card [nzBodyStyle]="{'padding': '16px'}" *ngIf="showUpdateAlert"  style="background: #ECECEC;"></nz-card>-->
+        <nz-row [nzJustify]="'space-between'" [nzAlign]="'middle'">
+          <span>There are new update coming in...</span>
+            <!--<span>There are new updates Coming, click the get updates button to refresh page data</span>
+              <button nz-button nzType="text" [nzSize]="'small'" (click)="reloadPageData()">Get Update</button>-->
+            <nz-spin nzSimple></nz-spin>
+        </nz-row>
+      </nz-card>
+      <br />
+      <nz-row [nzGutter]="[16, 24]">
+        <nz-col [nzSpan]="12">
+          <nz-row [nzGutter]="[16, 16]">
+            <nz-col [nzSpan]="12">
+              <nz-card>
+                <nz-statistic [nzValue]="((reportSummary.totalError || 0) | number)!" [nzTitle]="'Total No of Errors'"></nz-statistic>
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="12">
+              <nz-card>
+                <nz-statistic [nzValue]="((reportSummary.totalWarning || 0) | number)!" [nzTitle]="'Total No of Warnings'"></nz-statistic>
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="12">
+              <nz-card>
+                <nz-statistic [nzValue]="((reportSummary.totalInfo || 0) | number)!" [nzTitle]="'Total No of Info'"></nz-statistic>
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="12">
+              <nz-card>
+                <nz-statistic [nzValue]="((reportSummary.totalMessage || 0) | number)!" [nzTitle]="'Total No of Messages'"></nz-statistic>
+              </nz-card>
+            </nz-col>
+            <nz-col [nzSpan]="12">
+              <nz-card>
+                <nz-statistic [nzValue]="((reportSummary.totalLogFile || 0) | number)!" [nzTitle]="'Total No of Log Files'"></nz-statistic>
+              </nz-card>
+            </nz-col>
+          </nz-row>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-card>
+            <nz-table #fileLogsTable [nzTitle]="'File Logs'" [nzData]="filesDataSet.data" [nzLoading]="filesDataSet.processing" [nzPageSize]="5">
+              <thead>
+                <tr>
+                  <th>FileName</th>
+                  <th>Execution Time(ms)</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of fileLogsTable.data">
+                  <td>{{data.fileName}}</td>
+                  <td>{{data.executionTime}}</td>
+                  <td>{{data.dateCreated}}</td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </nz-card>
+        </nz-col>
+      </nz-row>
+      <br />
+      <nz-card>
+        <nz-table #logsTable [nzTitle]="'Message Logs'" [nzData]="logsDataSet.data" [nzLoading]="logsDataSet.processing" [nzFrontPagination]="false"
+        [nzTotal]="total"  [nzShowQuickJumper]="true" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" (nzPageIndexChange)="changePageIndex($event)">
+          <thead>
+            <tr>
+              <th nzShowSort nzSortKey="activity">Activity</th>
+              <th nzShowSort nzSortKey="message">Message</th>
+              <th nzShowSort nzSortKey="type">Type</th>
+              <th nzShowSort nzSortKey="severity">Severity</th>
+              <th nzShowSort nzSortKey="channel">Channel</th>
+              <th nzShowSort nzSortKey="timestamp">Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of logsTable.data">
+              <td>{{data.activityName}}</td>
+              <td>{{data.message}}</td>
+              <td>{{data.type}}</td>
+              <td>{{data.severity}}</td>
+              <td>{{data.channel}}</td>
+              <td>{{data.timestamp}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+  </nz-content>
+  <nz-footer>NgLogs</nz-footer>
+</nz-layout>
+
+<nz-modal [(nzVisible)]="fileUploadModalIsVisible" nzTitle="File Upload" (nzOnCancel)="toggleFileUploadModal()" [nzOkText]="null">
+  <nz-upload
+    nzType="drag"
+    [nzMultiple]="true"
+    nzAction="{{baseApiUrl}}/Upload"
+    [nzName]="'uploadedFiles'"
+    (nzChange)="uploadFiles($event)"
+  >
+  <p class="ant-upload-drag-icon">
+    <i nz-icon nzType="inbox"></i>
+  </p>
+  <p class="ant-upload-text">Click or drag file to this area to upload</p>
+  <p class="ant-upload-hint">
+    Support for a single or bulk upload. Upload Only Supported Files
+  </p>
+</nz-upload>
+</nz-modal>
