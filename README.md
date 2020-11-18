@@ -13,9 +13,9 @@ Our customers are interested in statistical data of their Tecan products. To fac
 * Angualr CLI 9.0 above
 * Azure SDK 
 
-## How To Run 
-*All Restful APIs,Azure functions, Database are hosted on Azure already and connected to the Frontend project. 
-*Running just the frontend gets the application fired up
+## Running this Project
+**All Restful APIs,Azure functions, Database are hosted on Azure already and connected to the Frontend project**
+**Running just the frontend gets the application fired up**
 
 * Clone this project 
 * Open the ReportLogFrontend folder in VS Code and then run the following command to get all the packages in your project.
@@ -31,9 +31,12 @@ if you are still facing some issues check the following command and resolve the 
 npm audix fix
 ```
 
+ ## BackEnd API Documentation
+[Swagger UI](https://reportlogapiservices.azurewebsites.net/swagger/index.html)
+
 ## How Services and Azure Functions Locally 
-** All Restful APIs,Azure functions, Database are hosted on Azure already and connected to the Frontend project **
-_ Running just the frontend gets the application fired up _
+**All Restful APIs,Azure functions, Database are hosted on Azure already and connected to the Frontend project**
+**Running just the frontend gets the application fired up**
 
 * Clone this project 
 * Open the ReportLogFrontend folder in VS Code and then run the following command to get all the packages in your project.
