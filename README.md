@@ -27,6 +27,12 @@ Please use the C# .NET Core framework and Microsoft Azure where applicable, apar
 * Angualr CLI 9.0 above
 * Azure SDK 
 
+ ## FrontEnd 
+[Frontend UI](https://tecanlogdashboard.azurewebsites.net/)
+
+ ## BackEnd API Documentation
+[Swagger UI](https://reportlogapiservices.azurewebsites.net/swagger/index.html)
+
 ## Running this Project
 > **All Restful APIs,Azure functions, Database are hosted on Azure already and connected to the Frontend project**, 
 > **Running just the frontend gets the application fired up**
@@ -45,12 +51,6 @@ if you are still facing some issues run the following command and resolve the is
 ```
 npm audix fix
 ```
- ## FrontEnd 
-[Frontend UI](https://tecanlogdashboard.azurewebsites.net/)
-
- ## BackEnd API Documentation
-[Swagger UI](https://reportlogapiservices.azurewebsites.net/swagger/index.html)
-
 ## Still wants to run Services and Azure Functions Locally :+1:
 
 * Setup up the right connection string from appsetting.json and make changes from startup.cs
