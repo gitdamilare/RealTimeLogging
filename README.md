@@ -45,6 +45,8 @@ if you are still facing some issues run the following command and resolve the is
 ```
 npm audix fix
 ```
+ ## FrontEnd 
+[Frontend UI](https://tecanlogdashboard.azurewebsites.net/)
 
  ## BackEnd API Documentation
 [Swagger UI](https://reportlogapiservices.azurewebsites.net/swagger/index.html)
