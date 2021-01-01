@@ -93,7 +93,6 @@ namespace ReportLogAPI.Services
 		public async Task<(bool IsSucess, List<string> output,  string Message)> UploadZipFile(IFormFileCollection uploadedFiles)
 		{
 			var uploads = Path.Combine(_hostingEnvironment.ContentRootPath, "uploads"); // Save to Blob
-			//var uploads = Path.Combine(@"C:\\Users\\damil\\Desktop\\Tecan\\solution\\ReportLogService\\ReportLogAPI", "uploads");
 			List<string> outputDto = new List<string>();
 			if (uploadedFiles.Count > 0 )
 			{		
@@ -116,7 +115,7 @@ namespace ReportLogAPI.Services
 									using (ZipArchive archive = ZipFile.OpenRead(filePath))
 									{
 									
-										var sample = archive.Entries[0];
+										var sample = archive.Entries[0]; //This is going cry 
 										if (sample != null)
 										{
 											using (var zipEntrystream = sample.Open())

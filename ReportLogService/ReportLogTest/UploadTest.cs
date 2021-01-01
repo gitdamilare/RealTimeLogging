@@ -20,13 +20,13 @@ namespace ReportLogTest
 		}
 
 
-		[Fact]
-		public async Task IsUploadSucessfulAsync()
-		{
-			var fileList = await ReturnFormFile();
-			var result = await _logProcessorService.UploadZipFile(fileList);
-			Assert.True(result.IsSucess,result.output?[0]);
-		}
+		//[Fact]
+		//public async Task IsUploadSucessfulAsync()
+		//{
+		//	var fileList = await ReturnFormFile();
+		//	var result = await _logProcessorService.UploadZipFile(fileList);
+		//	Assert.True(result.IsSucess,result.output?[0]);
+		//}
 
 		[Fact]
 		public async Task IsLogParseSucessfulAsync()

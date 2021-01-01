@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   baseApiUrl: 'https://reportlogapiservices.azurewebsites.net/api',
   baseSignalRUrl: 'https://reportlogfunctionapp.azurewebsites.net/api',
   baseApiManagementUrl: 'https://mainvspublish.azure-api.net/v1/api',
